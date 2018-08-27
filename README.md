@@ -10,3 +10,8 @@ The subreddits were:
 * r/nfl
 * r/soccer
 
+# Files
+
+Click on **Extracting_data.md** to get the script for extracting data from Reddit.
+
+Click on **Plotting_data.md** to see the script to plot the data.
