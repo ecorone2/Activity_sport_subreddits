@@ -1,0 +1,46 @@
+---
+title: "Subscriber gains"
+output: github_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Package needed
+
+```{r package, message = F, warning = F}
+
+library(dplyr)
+library(gridExtra)
+
+```
+
+## Loading data
+
+```{r data}
+
+load("subreddit_activity.RData")
+
+```
+
+## Processing data and creating table
+
+```{r processing}
+
+gains <- subreddit_data %>% 
+  group_by(subreddit) %>% 
+  summarize(minimum = min(subscribers),
+            maximum = max(subscribers)) %>% 
+  mutate(subs_gains = format(maximum - minimum, big.mark = ",")) %>% 
+  select(subreddit, subs_gains) %>% 
+  rename("Subreddit" = subreddit,
+         "Subscriber Gains" = subs_gains)
+
+# Exporting table
+gains_table <- tableGrob(gains, rows = NULL)
+grid.arrange(gains_table)
+
+```
