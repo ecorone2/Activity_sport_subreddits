@@ -1,8 +1,8 @@
 Extracting subreddit activity
 ================
 
-Package needed
---------------
+Packages needed
+---------------
 
 ``` r
 library(tidyverse)
@@ -105,8 +105,8 @@ Plot
 
 ![Graph](https://github.com/ecorone2/Activity_sport_subreddits/blob/master/figures/activity.png)
 
-Processing data and creating table
-----------------------------------
+Processing data and creating a table for subscriber gains
+---------------------------------------------------------
 
 ``` r
 gains <- subreddit_data %>% 
@@ -125,5 +125,7 @@ grid.arrange(gains_table)
 
 Table
 -----
+
+Subscribers gained by each subreddit from August 9 to August 27 2018.
 
 ![Table](https://github.com/ecorone2/Activity_sport_subreddits/blob/master/figures/subscriber_gains.png)
