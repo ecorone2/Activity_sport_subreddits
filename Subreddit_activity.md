@@ -1,32 +1,21 @@
----
-title: "Extracting subreddit activity"
-output: github_document
-editor_options: 
-  chunk_output_type: console
----
+Extracting subreddit activity
+================
 
-```{r setup, include = FALSE}
+Package needed
+--------------
 
-knitr::opts_chunk$set(echo = TRUE)
-
-```
-
-## Packages needed
-
-```{r packages, eval = T, message = F, warning = F}
-
+``` r
 library(tidyverse)
 library(scales)
 library(gridExtra)
-
 ```
 
-## Data extraction script
+Data extraction script
+----------------------
 
 This script needs to be run once manually. Then, it can be run on a schedule, using programs such as Task Scheduler in Windows. With each iteration, new data are added to the same files over time.
 
-```{r extract, eval = F, message = F, warning = F}
-
+``` r
 # During the first manual run, do not load this file, as it would not have been yet created
 load("subreddit_activity.RData")
 
@@ -67,13 +56,12 @@ save.image("subreddit_activity.RData")
 
 # Save externally just in case main file gets corrupted
 write.csv(perm_file, file = paste(Sys.Date(), "reddit_extract.txt", sep = "_"), row.names = F)
-
 ```
 
-## Creating graph
+Creating graph
+--------------
 
-```{r plot, eval = F, message = F, warning = F}
-
+``` r
 # For breaks
 daily_breaks <- seq(as.POSIXct("2018-08-09 12:00:00", origin = "1970-01-01"),
                     as.POSIXct("2018-08-27 12:00:00", origin = "1970-01-01"), "1 day")
@@ -110,17 +98,17 @@ ggplot(subreddit_data,
         plot.caption = element_text(size = 11))
 
 dev.off()
-
 ```
 
-## Plot
+Plot
+----
 
 ![Graph](https://github.com/ecorone2/Activity_sport_subreddits/blob/master/figures/activity.png)
 
-## Processing data and creating table
+Processing data and creating table
+----------------------------------
 
-```{r processing, eval = F}
-
+``` r
 gains <- subreddit_data %>% 
   group_by(subreddit) %>% 
   summarize(minimum = min(subscribers),
@@ -133,10 +121,9 @@ gains <- subreddit_data %>%
 # Exporting table
 gains_table <- tableGrob(gains, rows = NULL)
 grid.arrange(gains_table)
-
 ```
 
-
-## Table
+Table
+-----
 
 ![Table](https://github.com/ecorone2/Activity_sport_subreddits/blob/master/figures/subscriber_gains.png)
